@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class CityService {
 
@@ -17,5 +15,14 @@ public class CityService {
 
     public Page<City> getCities(Pageable pageable) {
         return cityRepository.findAll(pageable);
+    }
+
+    public City saveCity(City city) {
+        return cityRepository.save(city);
+    }
+
+    public String deleteCity(int id) {
+        cityRepository.deleteById(id);
+        return "delete success";
     }
 }

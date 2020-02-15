@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class CountryLanguageId implements Serializable {
@@ -25,5 +25,10 @@ public class CountryLanguageId implements Serializable {
     @Override
     public String toString() {
         return countryCode + '-' +language ;
+    }
+
+    public CountryLanguageId(String countryCode, String language) {
+        this.countryCode = countryCode;
+        this.language = language;
     }
 }

@@ -1,9 +1,10 @@
 package dk.practice.dataservice;
 
-import dk.practice.dataservice.config.CountryLanguageIdConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.convert.support.ConfigurableConversionService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class DataServiceApplication {
@@ -12,4 +13,16 @@ public class DataServiceApplication {
         SpringApplication.run(DataServiceApplication.class, args);
     }
 
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry
+                        .addMapping("/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
+            }
+        };
+    }
 }

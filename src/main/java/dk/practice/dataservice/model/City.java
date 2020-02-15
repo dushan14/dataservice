@@ -1,11 +1,17 @@
 package dk.practice.dataservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Table(name = "city")
 @Data
 @Entity
@@ -20,7 +26,7 @@ public class City implements Serializable {
     @Column(name = "Name", nullable = false)
     private String name = "";
 
-    @JsonManagedReference
+//    @JsonManagedReference(value = "city-country")
     @ManyToOne
     @JoinColumn(name = "CountryCode", insertable = false, nullable = false)
     private Country country;

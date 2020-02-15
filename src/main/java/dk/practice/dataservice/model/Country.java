@@ -1,6 +1,8 @@
 package dk.practice.dataservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +11,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "code"
+)
 @Data
 @Table(name = "country")
 @Entity
@@ -61,11 +67,13 @@ public class Country implements Serializable {
     @Column(name = "Code2", nullable = false)
     private String code2 = "";
 
-    @JsonBackReference
+    //    @JsonBackReference(value="city-country")
+    @JsonIgnore
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<City> cities = new ArrayList<>();
 
-    @JsonBackReference
+    //    @JsonBackReference(value="lang-country")
+    @JsonIgnore
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CountryLanguage> countryLanguages = new ArrayList<>();
 
